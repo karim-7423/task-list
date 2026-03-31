@@ -1,0 +1,548 @@
+:root {
+  color-scheme: light;
+  font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background:
+    radial-gradient(circle at top left, rgba(255, 214, 178, 0.6), transparent 30%),
+    radial-gradient(circle at top right, rgba(156, 196, 255, 0.35), transparent 28%),
+    linear-gradient(180deg, #f7f4ef 0%, #f3f6fb 100%);
+  color: #162033;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.auth-page,
+.app-shell {
+  min-height: 100vh;
+}
+
+.auth-page {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.aurora {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(40px);
+  opacity: 0.55;
+}
+
+.aurora-one {
+  width: 24rem;
+  height: 24rem;
+  background: rgba(239, 154, 90, 0.4);
+  top: -4rem;
+  left: -2rem;
+}
+
+.aurora-two {
+  width: 28rem;
+  height: 28rem;
+  background: rgba(104, 149, 255, 0.28);
+  bottom: -5rem;
+  right: -3rem;
+}
+
+.auth-card,
+.panel {
+  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 24px 80px rgba(30, 47, 86, 0.12);
+}
+
+.auth-card {
+  position: relative;
+  width: min(30rem, 100%);
+  padding: 2rem;
+  border-radius: 1.75rem;
+}
+
+.eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.76rem;
+  color: #617192;
+}
+
+.auth-card h1,
+.workspace-header h2,
+.brand-block h1 {
+  margin: 0.5rem 0 0.35rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+}
+
+.auth-copy,
+.brand-block p,
+.muted-copy,
+.empty-state p,
+.task-card p {
+  color: #5a6784;
+}
+
+.auth-form,
+.task-form,
+.detail-layout,
+.panel,
+.sidebar,
+.main-column,
+.app-body,
+.category-list,
+.task-list,
+.subtask-list {
+  display: grid;
+  gap: 1rem;
+}
+
+label {
+  display: grid;
+  gap: 0.45rem;
+  min-width: 0;
+  font-size: 0.95rem;
+  color: #30425d;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid rgba(79, 101, 140, 0.18);
+  border-radius: 1rem;
+  padding: 0.8rem 0.95rem;
+  background: rgba(248, 250, 255, 0.9);
+  color: #162033;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.primary-button,
+.secondary-button,
+.danger-button,
+.inline-form button,
+.ghost-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.85rem 1.2rem;
+}
+
+.primary-button {
+  background: linear-gradient(135deg, #243b63, #395f99);
+  color: #fff;
+}
+
+.secondary-button {
+  background: rgba(42, 67, 111, 0.08);
+  color: #20314d;
+}
+
+.danger-button {
+  background: rgba(191, 59, 61, 0.12);
+  color: #992525;
+}
+
+.ghost-button {
+  background: transparent;
+  color: #657289;
+  padding-inline: 0.4rem;
+}
+
+.auth-footer,
+.form-error,
+.screen-center,
+.counter,
+.task-meta,
+.task-state {
+  font-size: 0.9rem;
+}
+
+.form-error {
+  color: #a63c30;
+}
+
+.app-shell {
+  display: grid;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+
+.app-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem 1.75rem;
+}
+
+.header-copy {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 40rem;
+}
+
+.header-copy h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 0.98;
+}
+
+.header-copy p {
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-chip {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.8rem 1rem;
+  border-radius: 1.1rem;
+  background: rgba(244, 247, 253, 0.8);
+}
+
+.app-body {
+  display: grid;
+  grid-template-columns: 18rem minmax(30rem, 1fr) minmax(22rem, 27rem);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.sidebar,
+.main-column,
+.detail-panel {
+  align-content: start;
+}
+
+.sidebar,
+.detail-panel {
+  position: sticky;
+  top: 1.5rem;
+}
+
+.panel {
+  border-radius: 1.6rem;
+  padding: 1.25rem;
+}
+
+.sidebar-panel {
+  gap: 1.25rem;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.main-panel {
+  gap: 1.5rem;
+}
+
+.detail-panel {
+  gap: 1.5rem;
+  min-height: 32rem;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.quick-create-panel {
+  padding: 1.4rem 1.5rem;
+}
+
+.panel-header,
+.task-card-top,
+.task-meta,
+.detail-actions,
+.workspace-header,
+.subtask-row,
+.inline-form,
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.panel-header-tight {
+  align-items: flex-end;
+}
+
+.section-heading {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.section-heading h2,
+.section-heading h3 {
+  margin: 0;
+  line-height: 1.1;
+}
+
+.detail-heading {
+  gap: 0.45rem;
+}
+
+.control-stack {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.chip {
+  border: 1px solid rgba(41, 67, 110, 0.1);
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  background: rgba(244, 247, 253, 0.8);
+}
+
+.chip.active {
+  background: #22375a;
+  color: #fff;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.summary-card {
+  gap: 0.35rem;
+  padding: 1rem 1.1rem;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 12px 36px rgba(30, 47, 86, 0.08);
+}
+
+.summary-card strong {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.summary-label {
+  font-size: 0.82rem;
+  color: #617192;
+}
+
+.task-panel {
+  gap: 1rem;
+}
+
+.task-list {
+  max-height: calc(100vh - 19rem);
+  overflow: auto;
+  padding-right: 0.25rem;
+}
+
+.task-card {
+  width: 100%;
+  text-align: left;
+  border: 1px solid rgba(33, 52, 85, 0.08);
+  border-radius: 1.3rem;
+  padding: 1rem 1rem 0.95rem;
+  background: rgba(250, 251, 255, 0.92);
+  display: grid;
+  gap: 0.75rem;
+}
+
+.task-card.active {
+  border-color: rgba(48, 96, 180, 0.35);
+  box-shadow: 0 18px 40px rgba(53, 88, 149, 0.12);
+}
+
+.task-card-body {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.task-card strong {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.task-card p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.priority-badge,
+.category-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.78rem;
+  text-transform: capitalize;
+}
+
+.priority-badge.low {
+  background: rgba(82, 124, 184, 0.12);
+  color: #335d91;
+}
+
+.priority-badge.medium {
+  background: rgba(225, 165, 62, 0.16);
+  color: #9a6103;
+}
+
+.priority-badge.high {
+  background: rgba(203, 74, 73, 0.14);
+  color: #a32a2a;
+}
+
+.task-state.done {
+  color: #26774b;
+}
+
+.category-pill {
+  background: rgba(38, 79, 145, 0.08);
+  color: #2c4c7a;
+  justify-self: start;
+}
+
+.compact-copy {
+  margin: 0;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.detail-panel .field-grid {
+  grid-template-columns: 1fr;
+}
+
+.task-form {
+  gap: 1rem;
+}
+
+.task-form-compact {
+  gap: 0.85rem;
+}
+
+.task-form-compact textarea {
+  min-height: 5.75rem;
+}
+
+.detail-layout {
+  gap: 1.5rem;
+}
+
+.subtask-panel {
+  display: grid;
+  gap: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(33, 52, 85, 0.08);
+}
+
+.subtask-list {
+  gap: 0.75rem;
+}
+
+.subtask-row {
+  padding: 0.8rem 0.9rem;
+  border-radius: 1rem;
+  background: rgba(246, 248, 252, 0.82);
+}
+
+.checkbox-label {
+  justify-content: flex-start;
+  gap: 0.75rem;
+}
+
+.checkbox-label span {
+  color: #22314a;
+}
+
+.empty-state {
+  padding: 1.25rem;
+  border-radius: 1.25rem;
+  background: rgba(247, 249, 254, 0.8);
+}
+
+.list-empty {
+  margin-top: 0.25rem;
+}
+
+.detail-empty {
+  min-height: 24rem;
+  place-content: center;
+}
+
+.screen-center {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+}
+
+@media (max-width: 1100px) {
+  .app-body {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar,
+  .detail-panel {
+    position: static;
+  }
+
+  .summary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .task-list {
+    max-height: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    padding: 1rem;
+  }
+
+  .app-header,
+  .header-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .summary-grid,
+  .field-grid {
+    grid-template-columns: 1fr;
+  }
+}
