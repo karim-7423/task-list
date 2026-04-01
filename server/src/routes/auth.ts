@@ -1,5 +1,6 @@
 import { Router } from "express";
 import bcrypt from "bcryptjs";
+import { clearAuthCookie, readAuthCookie, setAuthCookie } from "../lib/auth-cookie.js";
 import { HttpError } from "../lib/errors.js";
 import { createId, nowIso, readData, writeData } from "../lib/db.js";
 import { loginSchema, registerSchema } from "../validators/auth.js";
@@ -29,7 +30,7 @@ authRouter.post("/register", async (request, response, next) => {
     data.users.push(user);
     await writeData(data);
 
-    request.session.userId = user.id;
+    setAuthCookie(response, user.id);
 
     return response.status(201).json({
       data: {
@@ -59,7 +60,7 @@ authRouter.post("/login", async (request, response, next) => {
       throw new HttpError(401, "Invalid username or password.");
     }
 
-    request.session.userId = user.id;
+    setAuthCookie(response, user.id);
 
     return response.json({
       data: {
@@ -73,34 +74,36 @@ authRouter.post("/login", async (request, response, next) => {
 });
 
 authRouter.post("/logout", async (request, response, next) => {
-  request.session.destroy((error) => {
-    if (error) {
-      return next(error);
-    }
-
-    response.clearCookie("task-app.sid");
+  try {
+    clearAuthCookie(response);
     return response.status(204).send();
-  });
+  } catch (error) {
+    return next(error);
+  }
 });
 
 authRouter.get("/me", async (request, response, next) => {
   try {
-    if (!request.session.userId) {
+    const auth = readAuthCookie(request);
+
+    if (!auth) {
       return response.status(401).json({
         error: "Authentication required."
       });
     }
 
     const data = await readData();
-    const user = data.users.find((entry) => entry.id === request.session.userId);
+    const user = data.users.find((entry) => entry.id === auth.userId);
 
     if (!user) {
-      request.session.userId = undefined;
       throw new HttpError(401, "Authentication required.");
     }
 
     return response.json({
-      data: user
+      data: {
+        id: user.id,
+        username: user.username
+      }
     });
   } catch (error) {
     return next(error);

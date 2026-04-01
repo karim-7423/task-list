@@ -16,7 +16,7 @@ tasksRouter.get("/", async (request, response, next) => {
     const data = await readData();
     const priorityOrder = { HIGH: 3, MEDIUM: 2, LOW: 1 };
 
-    let tasks = data.tasks.filter((task) => task.userId === request.session.userId);
+    let tasks = data.tasks.filter((task) => task.userId === request.auth!.userId);
 
     if (query.status === "active") {
       tasks = tasks.filter((task) => !task.completed);
@@ -86,7 +86,7 @@ tasksRouter.post("/", async (request, response, next) => {
       const category = data.categories.find(
         (entry) =>
           entry.id === payload.categoryId &&
-          entry.userId === request.session.userId
+          entry.userId === request.auth!.userId
       );
 
       if (!category) {
@@ -97,7 +97,7 @@ tasksRouter.post("/", async (request, response, next) => {
     const timestamp = nowIso();
     const task = {
       id: createId(),
-      userId: request.session.userId!,
+      userId: request.auth!.userId,
       title: payload.title,
       description: payload.description ?? null,
       completed: payload.completed ?? false,
@@ -124,7 +124,7 @@ tasksRouter.get("/:id", async (request, response, next) => {
     const task = data.tasks.find(
       (entry) =>
         entry.id === request.params.id &&
-        entry.userId === request.session.userId
+        entry.userId === request.auth!.userId
     );
 
     if (!task) {
@@ -146,7 +146,7 @@ tasksRouter.patch("/:id", async (request, response, next) => {
     const task = data.tasks.find(
       (entry) =>
         entry.id === request.params.id &&
-        entry.userId === request.session.userId
+        entry.userId === request.auth!.userId
     );
 
     if (!task) {
@@ -157,7 +157,7 @@ tasksRouter.patch("/:id", async (request, response, next) => {
       const category = data.categories.find(
         (entry) =>
           entry.id === payload.categoryId &&
-          entry.userId === request.session.userId
+          entry.userId === request.auth!.userId
       );
 
       if (!category) {
@@ -190,7 +190,7 @@ tasksRouter.delete("/:id", async (request, response, next) => {
     const taskIndex = data.tasks.findIndex(
       (entry) =>
         entry.id === request.params.id &&
-        entry.userId === request.session.userId
+        entry.userId === request.auth!.userId
     );
 
     if (taskIndex === -1) {
@@ -215,7 +215,7 @@ tasksRouter.post("/:id/subtasks", async (request, response, next) => {
     const task = data.tasks.find(
       (entry) =>
         entry.id === request.params.id &&
-        entry.userId === request.session.userId
+        entry.userId === request.auth!.userId
     );
 
     if (!task) {

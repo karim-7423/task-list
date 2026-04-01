@@ -14,7 +14,7 @@ subtasksRouter.patch("/:id", async (request, response, next) => {
     const data = await readData();
     const subtask = data.subtasks.find((entry) => {
       const task = data.tasks.find((taskEntry) => taskEntry.id === entry.taskId);
-      return entry.id === request.params.id && task?.userId === request.session.userId;
+      return entry.id === request.params.id && task?.userId === request.auth!.userId;
     });
 
     if (!subtask) {
@@ -38,7 +38,7 @@ subtasksRouter.delete("/:id", async (request, response, next) => {
     const data = await readData();
     const subtaskIndex = data.subtasks.findIndex((entry) => {
       const task = data.tasks.find((taskEntry) => taskEntry.id === entry.taskId);
-      return entry.id === request.params.id && task?.userId === request.session.userId;
+      return entry.id === request.params.id && task?.userId === request.auth!.userId;
     });
 
     if (subtaskIndex === -1) {

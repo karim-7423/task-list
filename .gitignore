@@ -4,6 +4,7 @@ coverage/
 .vite/
 .turbo/
 .DS_Store
+public/
 *.log
 .env
 .env.local

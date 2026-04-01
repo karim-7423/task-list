@@ -12,7 +12,7 @@ categoriesRouter.get("/", async (request, response, next) => {
   try {
     const data = await readData();
     const categories = data.categories
-      .filter((category) => category.userId === request.session.userId)
+      .filter((category) => category.userId === request.auth!.userId)
       .sort((left, right) => left.name.localeCompare(right.name));
 
     return response.json({ data: categories });
@@ -27,7 +27,7 @@ categoriesRouter.post("/", async (request, response, next) => {
     const data = await readData();
     const existing = data.categories.find(
       (category) =>
-        category.userId === request.session.userId &&
+        category.userId === request.auth!.userId &&
         category.name.toLowerCase() === name.toLowerCase()
     );
 
@@ -38,7 +38,7 @@ categoriesRouter.post("/", async (request, response, next) => {
     const timestamp = nowIso();
     const category = {
       id: createId(),
-      userId: request.session.userId!,
+      userId: request.auth!.userId,
       name,
       createdAt: timestamp,
       updatedAt: timestamp
@@ -59,7 +59,7 @@ categoriesRouter.patch("/:id", async (request, response, next) => {
     const category = data.categories.find(
       (entry) =>
         entry.id === request.params.id &&
-        entry.userId === request.session.userId
+        entry.userId === request.auth!.userId
     );
 
     if (!category) {
@@ -82,7 +82,7 @@ categoriesRouter.delete("/:id", async (request, response, next) => {
     const categoryIndex = data.categories.findIndex(
       (entry) =>
         entry.id === request.params.id &&
-        entry.userId === request.session.userId
+        entry.userId === request.auth!.userId
     );
 
     if (categoryIndex === -1) {
